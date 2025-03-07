@@ -53,7 +53,7 @@ public class MybatisProperties {
     /**
      * Locations of MyBatis mapper files.
      */
-    private String[] mapperLocations;
+    private String[] mapperLocations = new String[]{"classpath*:/mapper/**/*.xml"};
 
     /**
      * Packages to search type aliases. (Package delimiters are ",; \t\n")
