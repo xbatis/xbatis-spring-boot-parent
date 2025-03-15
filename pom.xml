@@ -20,12 +20,12 @@
     <parent>
         <groupId>cn.xbatis</groupId>
         <artifactId>xbatis</artifactId>
-        <version>1.8.3</version>
+        <version>1.8.5-M1</version>
     </parent>
 
     <url>https://gitee.com/mybatis-mp/mybatis-mp-spring-boot-parent/tree/springboot3</url>
     <artifactId>xbatis-spring-boot-parent</artifactId>
-    <version>1.8.3-spring-boot3</version>
+    <version>1.8.5-M1-spring-boot3</version>
     <description>
         xbatis的spring3启动器的parent
     </description>
