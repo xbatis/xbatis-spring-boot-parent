@@ -25,6 +25,7 @@
 
     <url>https://gitee.com/xbatis/xbatis-spring-boot-parent</url>
     <artifactId>xbatis-spring-boot-parent</artifactId>
+    <version>1.8.7-M1-spring-boot3</version>
     <description>
         xbatis的spring启动器的parent
     </description>
