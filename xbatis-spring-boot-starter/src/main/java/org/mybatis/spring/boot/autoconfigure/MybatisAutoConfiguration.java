@@ -209,7 +209,7 @@ public class MybatisAutoConfiguration implements InitializingBean {
             configurationField.setAccessible(true);
             Configuration configuration = (Configuration) ReflectionUtils.getField(configurationField, factory);
             if (configuration != null && configuration instanceof MybatisConfiguration) {
-                ((MybatisConfiguration) configuration).printBanner();
+                ((MybatisConfiguration) configuration).onInit();
             }
         } catch (NoSuchFieldException e) {
             throw new RuntimeException(e);
