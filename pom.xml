@@ -17,6 +17,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <name>xbatis-spring-boot-parent</name>
     <parent>
         <groupId>cn.xbatis</groupId>
         <artifactId>xbatis</artifactId>
@@ -26,7 +27,6 @@
     <url>https://gitee.com/mybatis-mp/mybatis-mp-spring-boot-parent/tree/springboot3</url>
     <artifactId>xbatis-spring-boot-parent</artifactId>
     <version>1.8.8-M2-spring-boot3</version>
-    <name>xbatis-spring-boot-parent</name>
     <description>
         xbatis的spring3启动器的parent
     </description>

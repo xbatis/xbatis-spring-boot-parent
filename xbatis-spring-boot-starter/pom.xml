@@ -25,6 +25,7 @@
 
     <url>https://gitee.com/xbatis/xbatis-spring-boot-parent/tree/springboot3/xbatis-spring-boot-starter</url>
     <artifactId>xbatis-spring-boot-starter</artifactId>
+    <name>xbatis-spring-boot-starter</name>
     <description>
         xbatis的spring3启动器的
     </description>
