@@ -20,11 +20,12 @@
     <parent>
         <groupId>cn.xbatis</groupId>
         <artifactId>xbatis-spring-boot-parent</artifactId>
-        <version>1.8.8-M1</version>
+        <version>1.8.8-M2</version>
     </parent>
 
     <url>https://gitee.com/xbatis/xbatis-spring-boot-parent</url>
     <artifactId>xbatis-spring-boot-starter</artifactId>
+    <name>xbatis-spring-boot-starter</name>
     <description>
         xbatis的spring启动器
     </description>
