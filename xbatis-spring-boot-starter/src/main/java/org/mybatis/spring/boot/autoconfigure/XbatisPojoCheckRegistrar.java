@@ -32,6 +32,7 @@ import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.core.type.filter.AssignableTypeFilter;
 
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class XbatisPojoCheckRegistrar implements ImportBeanDefinitionRegistrar {
 
@@ -42,39 +43,77 @@ public class XbatisPojoCheckRegistrar implements ImportBeanDefinitionRegistrar {
         Map<String, Object> annotationAttributes = annotationMetadata.getAnnotationAttributes(XbatisPojoCheckScan.class.getName());
         if (annotationAttributes != null) {
             String[] basePackages = (String[]) annotationAttributes.get(LambdaUtil.getName(XbatisPojoCheckScan::basePackages));
-
             String[] modelPackages = (String[]) annotationAttributes.get(LambdaUtil.getName(XbatisPojoCheckScan::modelPackages));
-            if (modelPackages == null || modelPackages.length == 0) {
-                modelPackages = basePackages;
-            }
-            if (modelPackages != null && modelPackages.length > 0) {
-                this.checkModel(modelPackages);
-            }
-
             String[] resultEntityPackages = (String[]) annotationAttributes.get(LambdaUtil.getName(XbatisPojoCheckScan::resultEntityPackages));
-            if (resultEntityPackages == null || resultEntityPackages.length == 0) {
-                resultEntityPackages = basePackages;
-            }
-            if (resultEntityPackages != null && resultEntityPackages.length > 0) {
-                this.checkResultEntityAnnotation(resultEntityPackages);
-            }
-
             String[] conditionTargetPackages = (String[]) annotationAttributes.get(LambdaUtil.getName(XbatisPojoCheckScan::conditionTargetPackages));
-            if (conditionTargetPackages == null || conditionTargetPackages.length == 0) {
-                conditionTargetPackages = basePackages;
-            }
-            if (conditionTargetPackages != null && conditionTargetPackages.length > 0) {
-                this.checkConditionTargetAnnotation(conditionTargetPackages);
-            }
-
             String[] orderByTargetPackages = (String[]) annotationAttributes.get(LambdaUtil.getName(XbatisPojoCheckScan::orderByTargetPackages));
-            if (orderByTargetPackages == null || orderByTargetPackages.length == 0) {
-                orderByTargetPackages = basePackages;
-            }
-            if (orderByTargetPackages != null && orderByTargetPackages.length > 0) {
-                this.checkOrderByTargetAnnotation(orderByTargetPackages);
+
+            PojoCheckInfo pojoCheckInfo = new PojoCheckInfo();
+            pojoCheckInfo.setCheckModel(modelPackages != null && modelPackages.length > 0);
+            pojoCheckInfo.setCheckResultEntity(resultEntityPackages != null && resultEntityPackages.length > 0);
+            pojoCheckInfo.setCheckConditionTarget(conditionTargetPackages != null && conditionTargetPackages.length > 0);
+            pojoCheckInfo.setCheckOrderTarget(orderByTargetPackages != null && orderByTargetPackages.length > 0);
+
+            if (pojoCheckInfo.isCheckModel()) {
+                executeCheckPackages(modelPackages, this::checkModel);
             }
 
+            if (pojoCheckInfo.isCheckResultEntity()) {
+                executeCheckPackages(resultEntityPackages, this::checkResultEntityAnnotation);
+            }
+
+            if (pojoCheckInfo.isCheckConditionTarget()) {
+                executeCheckPackages(conditionTargetPackages, this::checkConditionTargetAnnotation);
+            }
+
+            if (pojoCheckInfo.isCheckOrderTarget()) {
+                executeCheckPackages(orderByTargetPackages, this::checkOrderByTargetAnnotation);
+            }
+
+            //假如其中一个没有配置
+            if (!pojoCheckInfo.isCheckModel() || !pojoCheckInfo.isCheckResultEntity() || !pojoCheckInfo.isCheckConditionTarget() || !pojoCheckInfo.isCheckOrderTarget()) {
+                if (basePackages == null || basePackages.length == 0) {
+                    return;
+                }
+                //以basePackages为准
+                pojoCheckInfo.setCheckModel(!pojoCheckInfo.isCheckModel());
+                pojoCheckInfo.setCheckResultEntity(!pojoCheckInfo.isCheckResultEntity());
+                pojoCheckInfo.setCheckConditionTarget(!pojoCheckInfo.isCheckConditionTarget());
+                pojoCheckInfo.setCheckOrderTarget(!pojoCheckInfo.isCheckOrderTarget());
+                this.check(basePackages, pojoCheckInfo);
+            }
+
+        }
+    }
+
+    protected void executeCheckPackages(String[] targetPackages, Consumer<String[]> execution) {
+        if (targetPackages == null || targetPackages.length == 0) {
+            return;
+        }
+        execution.accept(targetPackages);
+    }
+
+    public void check(String[] basePackages, PojoCheckInfo pojoCheckInfo) {
+        ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
+        for (String basePackage : basePackages) {
+            for (BeanDefinition beanDefinition : scanner.findCandidateComponents(basePackage)) {
+                Class<?> clazz;
+                try {
+                    clazz = Class.forName(beanDefinition.getBeanClassName());
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+
+                if (pojoCheckInfo.isCheckModel() && Model.class.isAssignableFrom(clazz)) {
+                    Models.get(clazz);
+                } else if (pojoCheckInfo.isCheckResultEntity() && clazz.isAnnotationPresent(ResultEntity.class)) {
+                    ResultInfos.get(clazz);
+                } else if (pojoCheckInfo.isCheckConditionTarget() && clazz.isAnnotationPresent(ConditionTarget.class)) {
+                    Conditions.get(clazz);
+                } else if (pojoCheckInfo.isCheckOrderTarget() && clazz.isAnnotationPresent(OrderByTarget.class)) {
+                    OrderBys.get(clazz);
+                }
+            }
         }
     }
 
