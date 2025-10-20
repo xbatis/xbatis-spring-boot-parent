@@ -25,6 +25,12 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Import(XbatisPojoCheckRegistrar.class)
 public @interface XbatisPojoCheckScan {
+    /**
+     * 基础包路径；无法modelPackages、resultEntityPackages、conditionTargetPackages、orderByTargetPackages没有特殊指定；则使用此配置
+     *
+     * @return
+     */
+    String[] basePackages() default {};
 
     /**
      * 要扫描的Model包路径

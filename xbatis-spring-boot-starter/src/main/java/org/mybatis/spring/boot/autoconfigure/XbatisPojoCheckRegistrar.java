@@ -23,10 +23,8 @@ import cn.xbatis.db.annotations.ConditionTarget;
 import cn.xbatis.db.annotations.OrderByTarget;
 import cn.xbatis.db.annotations.ResultEntity;
 import db.sql.api.tookit.LambdaUtil;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
@@ -35,7 +33,6 @@ import org.springframework.core.type.filter.AssignableTypeFilter;
 
 import java.util.Map;
 
-@AutoConfigureAfter(SqlSessionFactory.class)
 public class XbatisPojoCheckRegistrar implements ImportBeanDefinitionRegistrar {
 
     @Override
@@ -44,24 +41,36 @@ public class XbatisPojoCheckRegistrar implements ImportBeanDefinitionRegistrar {
         // 获取 @XbatisPojoCheckScan 注解的属性
         Map<String, Object> annotationAttributes = annotationMetadata.getAnnotationAttributes(XbatisPojoCheckScan.class.getName());
         if (annotationAttributes != null) {
+            String[] basePackages = (String[]) annotationAttributes.get(LambdaUtil.getName(XbatisPojoCheckScan::basePackages));
 
             String[] modelPackages = (String[]) annotationAttributes.get(LambdaUtil.getName(XbatisPojoCheckScan::modelPackages));
+            if (modelPackages == null || modelPackages.length == 0) {
+                modelPackages = basePackages;
+            }
             if (modelPackages != null && modelPackages.length > 0) {
                 this.checkModel(modelPackages);
             }
 
             String[] resultEntityPackages = (String[]) annotationAttributes.get(LambdaUtil.getName(XbatisPojoCheckScan::resultEntityPackages));
+            if (resultEntityPackages == null || resultEntityPackages.length == 0) {
+                resultEntityPackages = basePackages;
+            }
             if (resultEntityPackages != null && resultEntityPackages.length > 0) {
                 this.checkResultEntityAnnotation(resultEntityPackages);
             }
 
             String[] conditionTargetPackages = (String[]) annotationAttributes.get(LambdaUtil.getName(XbatisPojoCheckScan::conditionTargetPackages));
+            if (conditionTargetPackages == null || conditionTargetPackages.length == 0) {
+                conditionTargetPackages = basePackages;
+            }
             if (conditionTargetPackages != null && conditionTargetPackages.length > 0) {
                 this.checkConditionTargetAnnotation(conditionTargetPackages);
             }
 
-
             String[] orderByTargetPackages = (String[]) annotationAttributes.get(LambdaUtil.getName(XbatisPojoCheckScan::orderByTargetPackages));
+            if (orderByTargetPackages == null || orderByTargetPackages.length == 0) {
+                orderByTargetPackages = basePackages;
+            }
             if (orderByTargetPackages != null && orderByTargetPackages.length > 0) {
                 this.checkOrderByTargetAnnotation(orderByTargetPackages);
             }
