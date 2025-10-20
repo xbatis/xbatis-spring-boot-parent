@@ -95,6 +95,8 @@ public class XbatisPojoCheckRegistrar implements ImportBeanDefinitionRegistrar {
 
     public void check(String[] basePackages, PojoCheckInfo pojoCheckInfo) {
         ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
+        // 添加过滤器
+        scanner.addIncludeFilter(new AssignableTypeFilter(Object.class));
         for (String basePackage : basePackages) {
             for (BeanDefinition beanDefinition : scanner.findCandidateComponents(basePackage)) {
                 Class<?> clazz;
@@ -119,7 +121,7 @@ public class XbatisPojoCheckRegistrar implements ImportBeanDefinitionRegistrar {
 
     public void checkModel(String[] basePackages) {
         ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
-        // 添加注解过滤器
+        // 添加过滤器
         scanner.addIncludeFilter(new AssignableTypeFilter(Model.class));
         for (String basePackage : basePackages) {
             for (BeanDefinition beanDefinition : scanner.findCandidateComponents(basePackage)) {
