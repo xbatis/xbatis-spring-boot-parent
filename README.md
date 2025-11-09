@@ -99,6 +99,39 @@ public class DemoApplication {
 }
 ```
 
+### springboot Application下安全检查配置
+```java
+@XbatisPojoCheckScan(basePackages = "com.sys.**.POJO")
+public class ApiApplication {
+    public static void main(String[] args) {
+        try {
+            SpringApplication.run(ApiApplication.class, args);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+}
+```
+### springboot 开发环境下安全检查配置（推荐）
+```java
+@Profile("dev")
+@Configuration
+@XbatisPojoCheckScan(basePackages = "com.sys.api.POJO.DTO")
+public class XbatisSafeCheckConfig {
+}
+```
+> 只有dev环境才检查；其他环境不检查（加速启动时间）
+>
+### XbatisPojoCheckScan属性说明
+| 属性名                     | 说明                                    |
+|-------------------------|---------------------------------------|
+| basePackages            | 基础包路径                                 |
+| modelPackages           | Model类的包扫描路径；如果没填，则使用basePackages的路径  |
+| resultEntityPackages    | VO类的包扫描路径；如果没填，则使用basePackages的路径     |
+| conditionTargetPackages | 对象转条件的类的包扫描路径；如果没填，则使用basePackages的路径 |
+| orderByTargetPackages   | 对象转排序的类的包扫描路径；如果没填，则使用basePackages的路径 |
+
 #### 数据库类型配置(可不配置，默认MYSQL)
 
 ```yaml
