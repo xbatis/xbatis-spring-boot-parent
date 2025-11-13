@@ -20,7 +20,7 @@
     <parent>
         <groupId>cn.xbatis</groupId>
         <artifactId>xbatis-spring-boot-parent</artifactId>
-        <version>1.9.2-RC7-spring-boot3</version>
+        <version>1.9.2-spring-boot3</version>
     </parent>
 
     <url>https://gitee.com/xbatis/xbatis-spring-boot-parent/tree/springboot3/xbatis-spring-boot-starter</url>
