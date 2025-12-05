@@ -68,7 +68,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
 
-        <xbatis-datasource-routing.version>1.0.8-springboot4</xbatis-datasource-routing.version>
+        <xbatis-datasource-routing.version>1.0.8-spring-boot4</xbatis-datasource-routing.version>
 
         <logback.version>1.5.21</logback.version>
         <slf4j.version>2.0.17</slf4j.version>
