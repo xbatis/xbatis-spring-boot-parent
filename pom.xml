@@ -67,7 +67,7 @@
         <mybatis-spring.version>2.1.2</mybatis-spring.version>
         <spring-boot.version>2.7.18</spring-boot.version>
 
-        <xbatis-datasource-routing.version>1.0.8-boot4</xbatis-datasource-routing.version>
+        <xbatis-datasource-routing.version>1.0.8</xbatis-datasource-routing.version>
 
         <mybatis-freemarker.version>1.3.0</mybatis-freemarker.version>
         <mybatis-velocity.version>2.3.0</mybatis-velocity.version>
