@@ -114,6 +114,7 @@ public class MybatisAutoConfiguration implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
+        //xbatis增加 不允许 使用 configLocation
         if(StringUtils.hasText(this.properties.getConfigLocation())){
             throw new RuntimeException("xbatis not support config location,please use yml or use ConfigurationCustomizer");
         }
@@ -186,6 +187,8 @@ public class MybatisAutoConfiguration implements InitializingBean {
 
     private void applyConfiguration(SqlSessionFactoryBean factory) {
         MybatisProperties.CoreConfiguration coreConfiguration = this.properties.getConfiguration();
+
+        //xbatis增加---替换Configuration为MybatisConfiguration
         MybatisConfiguration configuration = null;
         if (coreConfiguration != null || !StringUtils.hasText(this.properties.getConfigLocation())) {
             configuration = new MybatisConfiguration();
@@ -207,8 +210,9 @@ public class MybatisAutoConfiguration implements InitializingBean {
                 customizer.customize(factory);
             }
         }
+
         try {
-            //增加启动打印
+            //xbatis增加---增加启动打印
             Field configurationField = SqlSessionFactoryBean.class.getDeclaredField("configuration");
             configurationField.setAccessible(true);
             Configuration configuration = (Configuration) ReflectionUtils.getField(configurationField, factory);
@@ -218,6 +222,7 @@ public class MybatisAutoConfiguration implements InitializingBean {
         } catch (NoSuchFieldException e) {
             throw new RuntimeException(e);
         }
+
     }
 
     @Bean
@@ -276,8 +281,7 @@ public class MybatisAutoConfiguration implements InitializingBean {
             // for spring-native
             boolean injectSqlSession = environment.getProperty("mybatis.inject-sql-session-on-mapper-scan", Boolean.class,
                     Boolean.TRUE);
-            if (injectSqlSession && this.beanFactory instanceof ListableBeanFactory) {
-                ListableBeanFactory listableBeanFactory = (ListableBeanFactory) this.beanFactory;
+            if (injectSqlSession && this.beanFactory instanceof ListableBeanFactory listableBeanFactory) {
                 Optional<String> sqlSessionTemplateBeanName = Optional
                         .ofNullable(getBeanNameForType(SqlSessionTemplate.class, listableBeanFactory));
                 Optional<String> sqlSessionFactoryBeanName = Optional
@@ -286,7 +290,7 @@ public class MybatisAutoConfiguration implements InitializingBean {
                     builder.addPropertyValue("sqlSessionTemplateBeanName",
                             sqlSessionTemplateBeanName.orElse("sqlSessionTemplate"));
                 } else {
-                    builder.addPropertyValue("sqlSessionFactoryBeanName", sqlSessionFactoryBeanName.get());
+                    builder.addPropertyValue("sqlSessionFactoryBeanName", sqlSessionFactoryBeanName.orElseThrow());
                 }
             }
             builder.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);

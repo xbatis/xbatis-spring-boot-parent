@@ -24,6 +24,7 @@ import java.util.Set;
  * {@link DependsOnDatabaseInitializationDetector} for Mybatis.
  *
  * @author Eddú Meléndez
+ *
  * @since 2.3.0
  */
 class MybatisDependsOnDatabaseInitializationDetector
