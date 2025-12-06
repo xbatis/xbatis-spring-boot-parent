@@ -46,6 +46,29 @@ xbatis springboot启动器，基于mybatis-spring-boot-starter改动，改动很
 </dependencyManagement>
 
 <dependencies>
+<dependency>
+    <groupId>cn.xbatis</groupId>
+    <artifactId>xbatis-spring-boot-starter</artifactId>
+</dependency>
+</dependencies>
+```
+
+### 1.3 springboot4 maven 集成
+
+```xml
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>cn.xbatis</groupId>
+            <artifactId>xbatis-spring-boot-parent</artifactId>
+            <version>1.9.3-M3-spring-boot4</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+
+<dependencies>
     <dependency>
         <groupId>cn.xbatis</groupId>
         <artifactId>xbatis-spring-boot-starter</artifactId>
@@ -53,7 +76,7 @@ xbatis springboot启动器，基于mybatis-spring-boot-starter改动，改动很
 </dependencies>
 ```
 
-#### 1.3 数据源 配置
+#### 1.4 数据源 配置
 
 配置spring boot配置文件
 
