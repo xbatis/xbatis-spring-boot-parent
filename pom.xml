@@ -20,7 +20,7 @@
     <parent>
         <groupId>cn.xbatis</groupId>
         <artifactId>xbatis</artifactId>
-        <version>1.9.3-M5</version>
+        <version>1.9.3</version>
     </parent>
 
     <url>https://gitee.com/xbatis/xbatis-spring-boot-parent</url>
@@ -64,7 +64,10 @@
     </developers>
 
     <properties>
-        <xbatis-datasource-routing.version>1.0.8</xbatis-datasource-routing.version>
+        <xbatis.version>1.9.3</xbatis.version>
+        <xbatis-spring-boot-starter.version>1.9.3</xbatis-spring-boot-starter.version>
+        <xbatis-datasource-routing.version>1.0.9</xbatis-datasource-routing.version>
+        <xbatis-generator-core.version>1.1.5</xbatis-generator-core.version>
 
         <mybatis-spring.version>2.1.2</mybatis-spring.version>
         <spring-boot.version>2.7.18</spring-boot.version>
@@ -84,14 +87,14 @@
         <dependencies>
             <dependency>
                 <groupId>cn.xbatis</groupId>
-                <artifactId>xbatis-spring-boot-starter</artifactId>
-                <version>${project.version}</version>
+                <artifactId>xbatis-core</artifactId>
+                <version>${xbatis.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>cn.xbatis</groupId>
-                <artifactId>xbatis-core</artifactId>
-                <version>${xbatis.version}</version>
+                <artifactId>xbatis-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
@@ -100,6 +103,11 @@
                 <version>${xbatis-datasource-routing.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>cn.xbatis</groupId>
+                <artifactId>xbatis-generator-core</artifactId>
+                <version>${xbatis-generator-core.version}</version>
+            </dependency>
 
             <!-- log -->
             <dependency>
