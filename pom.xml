@@ -28,7 +28,7 @@
     <artifactId>xbatis-spring-boot-parent</artifactId>
     <version>1.9.3-spring-boot3</version>
     <description>
-        xbatis的spring3启动器的parent
+        xbatis的springboot3启动器的parent
     </description>
     <packaging>pom</packaging>
 
