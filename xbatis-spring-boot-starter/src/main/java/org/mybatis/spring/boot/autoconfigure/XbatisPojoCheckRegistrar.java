@@ -102,7 +102,7 @@ public class XbatisPojoCheckRegistrar implements ImportBeanDefinitionRegistrar {
                 Class<?> clazz;
                 try {
                     clazz = Class.forName(beanDefinition.getBeanClassName());
-                } catch (Exception ignored) {
+                } catch (Throwable ignored) {
                     continue;
                 }
 
