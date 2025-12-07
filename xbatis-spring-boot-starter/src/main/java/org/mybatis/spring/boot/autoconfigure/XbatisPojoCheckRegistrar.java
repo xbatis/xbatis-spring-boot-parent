@@ -99,15 +99,6 @@ public class XbatisPojoCheckRegistrar implements ImportBeanDefinitionRegistrar {
         scanner.addIncludeFilter(new AssignableTypeFilter(Object.class));
         for (String basePackage : basePackages) {
             for (BeanDefinition beanDefinition : scanner.findCandidateComponents(basePackage)) {
-                if (beanDefinition.isSingleton()) {
-                    continue;
-                } else if (beanDefinition.isPrototype()) {
-                    continue;
-                } else if (beanDefinition.isAbstract()) {
-                    continue;
-                } else if (beanDefinition.isLazyInit()) {
-                    continue;
-                }
                 Class<?> clazz;
                 try {
                     clazz = Class.forName(beanDefinition.getBeanClassName());
