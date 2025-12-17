@@ -13,11 +13,15 @@
  */
 package org.mybatis.spring.boot.autoconfigure;
 
+import cn.xbatis.core.mybatis.configuration.MybatisConfiguration;
 import org.apache.ibatis.io.VFS;
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.mapping.ResultSetType;
 import org.apache.ibatis.scripting.LanguageDriver;
-import org.apache.ibatis.session.*;
+import org.apache.ibatis.session.AutoMappingBehavior;
+import org.apache.ibatis.session.AutoMappingUnknownColumnBehavior;
+import org.apache.ibatis.session.ExecutorType;
+import org.apache.ibatis.session.LocalCacheScope;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -379,6 +383,11 @@ public class MybatisProperties {
          */
         private String databaseId;
 
+        /**
+         * 是否开启banner打印
+         */
+        private boolean banner = true;
+
         public Boolean getSafeRowBoundsEnabled() {
             return safeRowBoundsEnabled;
         }
@@ -635,7 +644,15 @@ public class MybatisProperties {
             this.databaseId = databaseId;
         }
 
-        public void applyTo(Configuration target) {
+        public boolean isBanner() {
+            return banner;
+        }
+
+        public void setBanner(boolean banner) {
+            this.banner = banner;
+        }
+
+        public void applyTo(MybatisConfiguration target) {
             PropertyMapper mapper = PropertyMapper.get().alwaysApplyingWhenNonNull();
             mapper.from(getSafeRowBoundsEnabled()).to(target::setSafeRowBoundsEnabled);
             mapper.from(getSafeResultHandlerEnabled()).to(target::setSafeResultHandlerEnabled);
@@ -669,6 +686,7 @@ public class MybatisProperties {
             mapper.from(getConfigurationFactory()).to(target::setConfigurationFactory);
             mapper.from(getDefaultEnumTypeHandler()).to(target::setDefaultEnumTypeHandler);
             mapper.from(getDatabaseId()).to(target::setDatabaseId);
+            mapper.from(isBanner()).to(target::setBanner);
         }
 
     }
