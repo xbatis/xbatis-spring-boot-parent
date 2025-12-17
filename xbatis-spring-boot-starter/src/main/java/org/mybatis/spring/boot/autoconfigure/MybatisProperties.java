@@ -692,22 +692,6 @@ public class MybatisProperties {
             this.banner = banner;
         }
 
-        public Map<DbType, DbType> getDbTypeConvert() {
-            return dbTypeConvert;
-        }
-
-        public void setDbTypeConvert(Map<DbType, DbType> dbTypeConvert) {
-            this.dbTypeConvert = dbTypeConvert;
-        }
-
-        public DbType getDefaultDbType() {
-            return defaultDbType;
-        }
-
-        public void setDefaultDbType(DbType defaultDbType) {
-            this.defaultDbType = defaultDbType;
-        }
-
         public void applyTo(MybatisConfiguration target) {
             PropertyMapper mapper = PropertyMapper.get();
             mapper.from(getSafeRowBoundsEnabled()).to(target::setSafeRowBoundsEnabled);
@@ -743,8 +727,6 @@ public class MybatisProperties {
             mapper.from(getDefaultEnumTypeHandler()).to(target::setDefaultEnumTypeHandler);
             mapper.from(getDatabaseId()).to(target::setDatabaseId);
             mapper.from(isBanner()).to(target::setBanner);
-            mapper.from(getDbTypeConvert()).to(target::setDbTypeConvert);
-            mapper.from(getDefaultDbType()).to(target::setDefaultDbType);
         }
 
     }
