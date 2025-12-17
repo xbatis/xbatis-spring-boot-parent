@@ -26,6 +26,12 @@
       "type": "java.lang.String"
     },
     {
+      "defaultValue": true,
+      "name": "mybatis.configuration.banner",
+      "description": "Set whether enable print xbatis banner.",
+      "type": "java.lang.Boolean"
+    },
+    {
       "defaultValue": false,
       "name": "mybatis.lazy-initialization",
       "description": "Set whether enable lazy initialization for mapper bean.",
