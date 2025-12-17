@@ -14,7 +14,6 @@
 package org.mybatis.spring.boot.autoconfigure;
 
 import cn.xbatis.core.mybatis.configuration.MybatisConfiguration;
-import db.sql.api.DbType;
 import org.apache.ibatis.io.VFS;
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.mapping.ResultSetType;
@@ -33,7 +32,9 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Optional;
+import java.util.Properties;
+import java.util.Set;
 import java.util.stream.Stream;
 
 /**
@@ -416,16 +417,6 @@ public class MybatisProperties {
          * 是否开启banner打印
          */
         private boolean banner = true;
-
-        /**
-         * DbType转换Map
-         */
-        private Map<DbType, DbType> dbTypeConvert = new HashMap<>();
-
-        /**
-         * 默认dbType
-         */
-        private DbType defaultDbType;
 
         public Boolean getSafeRowBoundsEnabled() {
             return safeRowBoundsEnabled;
