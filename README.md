@@ -15,7 +15,7 @@ xbatis springboot启动器，基于mybatis-spring-boot-starter改动，改动很
         <dependency>
             <groupId>cn.xbatis</groupId>
             <artifactId>xbatis-spring-boot-parent</artifactId>
-            <version>1.9.5-M2</version>
+            <version>1.9.5-M3</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -38,7 +38,7 @@ xbatis springboot启动器，基于mybatis-spring-boot-starter改动，改动很
         <dependency>
             <groupId>cn.xbatis</groupId>
             <artifactId>xbatis-spring-boot-parent</artifactId>
-            <version>1.9.5-M2-spring-boot3</version>
+            <version>1.9.5-M3-spring-boot3</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -61,7 +61,7 @@ xbatis springboot启动器，基于mybatis-spring-boot-starter改动，改动很
         <dependency>
             <groupId>cn.xbatis</groupId>
             <artifactId>xbatis-spring-boot-parent</artifactId>
-            <version>1.9.5-M2-spring-boot4</version>
+            <version>1.9.5-M3-spring-boot4</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
