@@ -21,12 +21,12 @@
     <parent>
         <groupId>cn.xbatis</groupId>
         <artifactId>xbatis</artifactId>
-        <version>1.9.8-M2</version>
+        <version>1.9.8-M3</version>
     </parent>
 
     <url>https://gitee.com/mybatis-mp/mybatis-mp-spring-boot-parent/tree/springboot3</url>
     <artifactId>xbatis-spring-boot-parent</artifactId>
-    <version>1.9.8-M2-spring-boot4</version>
+    <version>1.9.8-M3-spring-boot4</version>
     <description>
         xbatis的spring4启动器的parent
     </description>
@@ -68,15 +68,15 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
 
-        <xbatis.version>1.9.8-M2</xbatis.version>
-        <xbatis-spring-boot-starter.version>1.9.8-M2-spring-boot4</xbatis-spring-boot-starter.version>
+        <xbatis.version>1.9.8-M3</xbatis.version>
+        <xbatis-spring-boot-starter.version>1.9.8-M3-spring-boot4</xbatis-spring-boot-starter.version>
         <xbatis-datasource-routing.version>1.1.0-spring-boot4</xbatis-datasource-routing.version>
         <xbatis-generator-core.version>1.1.6</xbatis-generator-core.version>
 
-        <logback.version>1.5.28</logback.version>
+        <logback.version>1.5.32</logback.version>
         <slf4j.version>2.0.17</slf4j.version>
         <mybatis-spring.version>4.0.0</mybatis-spring.version>
-        <spring-boot.version>4.0.2</spring-boot.version>
+        <spring-boot.version>4.0.3</spring-boot.version>
 
         <mybatis-freemarker.version>1.3.1</mybatis-freemarker.version>
         <mybatis-velocity.version>2.3.1</mybatis-velocity.version>
