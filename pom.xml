@@ -156,6 +156,21 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
+
+        <dependency>
+            <groupId>org.mybatis.scripting</groupId>
+            <artifactId>mybatis-freemarker</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis.scripting</groupId>
+            <artifactId>mybatis-velocity</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis.scripting</groupId>
+            <artifactId>mybatis-thymeleaf</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
