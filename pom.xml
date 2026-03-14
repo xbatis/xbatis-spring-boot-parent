@@ -70,7 +70,6 @@
 
         <xbatis-spring-boot-starter.version>1.9.9-M1-spring-boot3</xbatis-spring-boot-starter.version>
         <xbatis-datasource-routing.version>1.1.1</xbatis-datasource-routing.version>
-        <xbatis-generator-core.version>1.1.6</xbatis-generator-core.version>
 
         <logback.version>1.5.32</logback.version>
         <slf4j.version>2.0.17</slf4j.version>
@@ -119,6 +118,18 @@
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis-spring</artifactId>
                 <version>${mybatis-spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.xbatis</groupId>
+                <artifactId>xbatis-spring-boot-starter</artifactId>
+                <version>${xbatis-spring-boot-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.xbatis</groupId>
+                <artifactId>xbatis-datasource-routing</artifactId>
+                <version>${xbatis-datasource-routing.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
