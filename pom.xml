@@ -121,24 +121,6 @@
                 <artifactId>mybatis-spring</artifactId>
                 <version>${mybatis-spring.version}</version>
             </dependency>
-
-            <dependency>
-                <groupId>org.mybatis.scripting</groupId>
-                <artifactId>mybatis-freemarker</artifactId>
-                <version>${mybatis-freemarker.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.mybatis.scripting</groupId>
-                <artifactId>mybatis-velocity</artifactId>
-                <version>${mybatis-velocity.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.mybatis.scripting</groupId>
-                <artifactId>mybatis-thymeleaf</artifactId>
-                <version>${mybatis-thymeleaf.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
