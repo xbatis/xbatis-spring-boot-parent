@@ -121,6 +121,18 @@
                 <artifactId>mybatis-spring</artifactId>
                 <version>${mybatis-spring.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>cn.xbatis</groupId>
+                <artifactId>xbatis-spring-boot-starter</artifactId>
+                <version>${xbatis-spring-boot-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.xbatis</groupId>
+                <artifactId>xbatis-datasource-routing</artifactId>
+                <version>${xbatis-datasource-routing.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
