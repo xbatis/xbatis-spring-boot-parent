@@ -20,13 +20,13 @@
     <name>xbatis-spring-boot-parent</name>
     <parent>
         <groupId>cn.xbatis</groupId>
-        <artifactId>xbatis</artifactId>
-        <version>1.9.8</version>
+        <artifactId>xbatis-parent</artifactId>
+        <version>1.9.9-M1</version>
     </parent>
 
     <url>https://gitee.com/mybatis-mp/mybatis-mp-spring-boot-parent/tree/springboot3</url>
     <artifactId>xbatis-spring-boot-parent</artifactId>
-    <version>1.9.8-spring-boot3</version>
+    <version>1.9.9-M1-spring-boot3</version>
     <description>
         xbatis的springboot3启动器的parent
     </description>
@@ -68,8 +68,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
 
-        <xbatis.version>1.9.8</xbatis.version>
-        <xbatis-spring-boot-starter.version>1.9.8-spring-boot3</xbatis-spring-boot-starter.version>
+        <xbatis-spring-boot-starter.version>1.9.9-M1-spring-boot3</xbatis-spring-boot-starter.version>
         <xbatis-datasource-routing.version>1.1.1</xbatis-datasource-routing.version>
         <xbatis-generator-core.version>1.1.6</xbatis-generator-core.version>
 
@@ -78,45 +77,11 @@
         <mybatis-spring.version>3.0.5</mybatis-spring.version>
         <spring-boot.version>3.5.11</spring-boot.version>
 
-        <mybatis-freemarker.version>1.3.1</mybatis-freemarker.version>
-        <mybatis-velocity.version>2.3.1</mybatis-velocity.version>
-        <mybatis-thymeleaf.version>1.1.1</mybatis-thymeleaf.version>
-
         <argLine>--add-opens java.base/java.lang=ALL-UNNAMED -Dfile.encoding=UTF-8</argLine>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>cn.xbatis</groupId>
-                <artifactId>xbatis-core</artifactId>
-                <version>${xbatis.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>cn.xbatis</groupId>
-                <artifactId>xbatis-spring-boot-starter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>cn.xbatis</groupId>
-                <artifactId>xbatis-datasource-routing</artifactId>
-                <version>${xbatis-datasource-routing.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>cn.xbatis</groupId>
-                <artifactId>xbatis-generator-core</artifactId>
-                <version>${xbatis-generator-core.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.mybatis</groupId>
-                <artifactId>mybatis-spring</artifactId>
-                <version>${mybatis-spring.version}</version>
-            </dependency>
-
             <!-- log -->
             <dependency>
                 <groupId>org.slf4j</groupId>
@@ -151,25 +116,9 @@
             </dependency>
 
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.mybatis.scripting</groupId>
-                <artifactId>mybatis-freemarker</artifactId>
-                <version>${mybatis-freemarker.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mybatis.scripting</groupId>
-                <artifactId>mybatis-velocity</artifactId>
-                <version>${mybatis-velocity.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mybatis.scripting</groupId>
-                <artifactId>mybatis-thymeleaf</artifactId>
-                <version>${mybatis-thymeleaf.version}</version>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>${mybatis-spring.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -205,24 +154,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mybatis.scripting</groupId>
-            <artifactId>mybatis-freemarker</artifactId>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mybatis.scripting</groupId>
-            <artifactId>mybatis-velocity</artifactId>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mybatis.scripting</groupId>
-            <artifactId>mybatis-thymeleaf</artifactId>
             <optional>true</optional>
         </dependency>
     </dependencies>
