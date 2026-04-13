@@ -70,8 +70,7 @@
 
         <xbatis.version>1.9.9</xbatis.version>
         <xbatis-spring-boot-starter.version>1.9.9-spring-boot4</xbatis-spring-boot-starter.version>
-        <xbatis-datasource-routing.version>1.1.1-spring-boot4</xbatis-datasource-routing.version>
-        <xbatis-generator-core.version>1.1.6</xbatis-generator-core.version>
+        <xbatis-datasource-routing.version>1.1.2-spring-boot4</xbatis-datasource-routing.version>
 
         <logback.version>1.5.32</logback.version>
         <slf4j.version>2.0.17</slf4j.version>
