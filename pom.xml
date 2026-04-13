@@ -21,7 +21,7 @@
     <parent>
         <groupId>cn.xbatis</groupId>
         <artifactId>xbatis-parent</artifactId>
-        <version>1.9.9-M8</version>
+        <version>1.9.9</version>
     </parent>
 
     <url>https://gitee.com/mybatis-mp/mybatis-mp-spring-boot-parent/tree/main</url>
@@ -68,8 +68,8 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
 
-        <xbatis-spring-boot-starter.version>1.9.9-M8</xbatis-spring-boot-starter.version>
-        <xbatis-datasource-routing.version>1.1.1</xbatis-datasource-routing.version>
+        <xbatis-spring-boot-starter.version>1.9.9</xbatis-spring-boot-starter.version>
+        <xbatis-datasource-routing.version>1.1.2</xbatis-datasource-routing.version>
     </properties>
 
     <dependencyManagement>
