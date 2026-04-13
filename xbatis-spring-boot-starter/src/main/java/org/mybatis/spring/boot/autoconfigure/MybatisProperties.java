@@ -228,68 +228,57 @@ public class MybatisProperties {
     public static class CoreConfiguration {
 
         /**
+         * Specifies the TypeHandler used by default for Enum.
+         */
+        Class<? extends TypeHandler> defaultEnumTypeHandler;
+        /**
          * Allows using RowBounds on nested statements. If allow, set the false. Default is false.
          */
         private Boolean safeRowBoundsEnabled;
-
         /**
          * Allows using ResultHandler on nested statements. If allow, set the false. Default is true.
          */
         private Boolean safeResultHandlerEnabled;
-
         /**
          * Enables automatic mapping from classic database column names A_COLUMN to camel case classic Java property names
          * aColumn. Default is false.
          */
         private Boolean mapUnderscoreToCamelCase;
-
         /**
          * When enabled, any method call will load all the lazy properties of the object. Otherwise, each property is loaded
          * on demand (see also lazyLoadTriggerMethods). Default is false.
          */
         private Boolean aggressiveLazyLoading;
-
         /**
          * Allows or disallows multiple ResultSets to be returned from a single statement (compatible driver required).
          * Default is true.
          */
         private Boolean multipleResultSetsEnabled;
-
         /**
          * Allows JDBC support for generated keys. A compatible driver is required. This setting forces generated keys to be
          * used if set to true, as some drivers deny compatibility but still work (e.g. Derby). Default is false.
          */
         private Boolean useGeneratedKeys;
-
         /**
          * Uses the column label instead of the column name. Different drivers behave differently in this respect. Refer to
          * the driver documentation, or test out both modes to determine how your driver behaves. Default is true.
          */
         private Boolean useColumnLabel;
-
         /**
          * Globally enables or disables any caches configured in any mapper under this configuration. Default is true.
          */
         private Boolean cacheEnabled;
-
         /**
          * Specifies if setters or map's put method will be called when a retrieved value is null. It is useful when you
          * rely on Map.keySet() or null value initialization. Note primitives such as (int,boolean,etc.) will not be set to
          * null. Default is false.
          */
         private Boolean callSettersOnNulls;
-
         /**
          * Allow referencing statement parameters by their actual names declared in the method signature. To use this
          * feature, your project must be compiled in Java 8 with -parameters option. Default is true.
          */
         private Boolean useActualParamName;
-
-        /**
-         * Specifies the TypeHandler used by default for Enum.
-         */
-        Class<? extends TypeHandler> defaultEnumTypeHandler;
-
         /**
          * Removes extra whitespace characters from the SQL. Note that this also affects literal strings in SQL. Default is
          * false.

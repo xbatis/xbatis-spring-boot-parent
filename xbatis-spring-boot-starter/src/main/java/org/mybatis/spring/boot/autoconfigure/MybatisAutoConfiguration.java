@@ -115,7 +115,7 @@ public class MybatisAutoConfiguration implements InitializingBean {
     @Override
     public void afterPropertiesSet() {
         //xbatis增加 不允许 使用 configLocation
-        if(StringUtils.hasText(this.properties.getConfigLocation())){
+        if (StringUtils.hasText(this.properties.getConfigLocation())) {
             throw new RuntimeException("xbatis not support config location,please use yml or use ConfigurationCustomizer");
         }
         checkConfigFileExists();

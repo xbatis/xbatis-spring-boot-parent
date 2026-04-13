@@ -39,12 +39,13 @@ public class SpringBootVFS extends VFS {
 
     private static Charset urlDecodingCharset;
     private static Supplier<ClassLoader> classLoaderSupplier;
-    private final ResourcePatternResolver resourceResolver;
 
     static {
         setUrlDecodingCharset(Charset.defaultCharset());
         setClassLoaderSupplier(ClassUtils::getDefaultClassLoader);
     }
+
+    private final ResourcePatternResolver resourceResolver;
 
     public SpringBootVFS() {
         this.resourceResolver = new PathMatchingResourcePatternResolver(classLoaderSupplier.get());
@@ -63,11 +64,6 @@ public class SpringBootVFS extends VFS {
         classLoaderSupplier = supplier;
     }
 
-    @Override
-    public boolean isValid() {
-        return true;
-    }
-
     /**
      * Set the charset for decoding an encoded URL string.
      * <p>
@@ -81,15 +77,6 @@ public class SpringBootVFS extends VFS {
         urlDecodingCharset = charset;
     }
 
-    @Override
-    protected List<String> list(URL url, String path) throws IOException {
-        String urlString = URLDecoder.decode(url.toString(), urlDecodingCharset);
-        String baseUrlString = urlString.endsWith("/") ? urlString : urlString.concat("/");
-        Resource[] resources = resourceResolver.getResources(baseUrlString + "**/*.class");
-        return Stream.of(resources).map(resource -> preserveSubpackageName(baseUrlString, resource, path))
-                .collect(Collectors.toList());
-    }
-
     private static String preserveSubpackageName(final String baseUrlString, final Resource resource,
                                                  final String rootPath) {
         try {
@@ -100,6 +87,20 @@ public class SpringBootVFS extends VFS {
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
+    }
+
+    @Override
+    public boolean isValid() {
+        return true;
+    }
+
+    @Override
+    protected List<String> list(URL url, String path) throws IOException {
+        String urlString = URLDecoder.decode(url.toString(), urlDecodingCharset);
+        String baseUrlString = urlString.endsWith("/") ? urlString : urlString.concat("/");
+        Resource[] resources = resourceResolver.getResources(baseUrlString + "**/*.class");
+        return Stream.of(resources).map(resource -> preserveSubpackageName(baseUrlString, resource, path))
+                .collect(Collectors.toList());
     }
 
 }
