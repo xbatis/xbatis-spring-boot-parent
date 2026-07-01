@@ -15,6 +15,7 @@
 package org.mybatis.spring.boot.autoconfigure;
 
 import cn.xbatis.db.annotations.Table;
+import cn.xbatis.ddl.auto.Mode;
 import db.sql.api.tookit.LambdaUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,8 +48,10 @@ public class XbatisDDLAutoRegistrar implements ImportBeanDefinitionRegistrar {
 
 
     public void registerBeanDefinitions(AnnotationMetadata annotationMetadata, BeanDefinitionRegistry registry, AnnotationAttributes annoAttrs, int index) {
-
-
+        Mode mode = (Mode) annoAttrs.get(LambdaUtil.getName(XbatisDDLAutoScan::mode));
+        if (mode == Mode.NONE) {
+            return;
+        }
         String[] entityPackages = (String[]) annoAttrs.get(LambdaUtil.getName(XbatisDDLAutoScan::entityPackages));
         ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
 
