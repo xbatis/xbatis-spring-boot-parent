@@ -20,7 +20,6 @@ import cn.xbatis.ddl.auto.Mode;
 import db.sql.api.DbType;
 import db.sql.api.IDbType;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.jspecify.annotations.Nullable;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
@@ -78,7 +77,8 @@ public class XbatisDDLAuto implements BeanPostProcessor {
         } else {
             ds = dataSources.get(this.dataSource);
             if (ds == null) {
-                if (ds instanceof AbstractRoutingDataSource routingDataSource) {
+                if (this.primary instanceof AbstractRoutingDataSource) {
+                    AbstractRoutingDataSource routingDataSource = (AbstractRoutingDataSource) this.primary;
                     Map<Object, DataSource> dss = routingDataSource.getResolvedDataSources();
                     ds = dss.get(this.dataSource);
                 }
@@ -100,7 +100,7 @@ public class XbatisDDLAuto implements BeanPostProcessor {
     }
 
     @Override
-    public @Nullable Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         if (bean instanceof SqlSessionFactory && executed.compareAndSet(false, true)) {
             this.autoDDL();
         }
