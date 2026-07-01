@@ -70,7 +70,6 @@
 
         <xbatis-spring-boot-starter.version>1.10.6</xbatis-spring-boot-starter.version>
         <xbatis-datasource-routing.version>1.1.2</xbatis-datasource-routing.version>
-        <xbatis-ddl-auto.version>1.0.0</xbatis-ddl-auto.version>
     </properties>
 
     <dependencyManagement>
