@@ -44,7 +44,7 @@ public @interface XbatisDDLAutoScan {
      *
      * @return
      */
-    DbType dbType() default DbType.UNKNOWN;
+    String dbType() default DbType.Name.UNKNOWN;
 
     /**
      * 指定数据源
