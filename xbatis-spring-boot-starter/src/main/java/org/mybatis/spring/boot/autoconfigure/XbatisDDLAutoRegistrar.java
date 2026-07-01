@@ -15,6 +15,7 @@
 package org.mybatis.spring.boot.autoconfigure;
 
 import cn.xbatis.db.annotations.Table;
+import cn.xbatis.ddl.auto.Mode;
 import db.sql.api.tookit.LambdaUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +48,10 @@ public class XbatisDDLAutoRegistrar implements ImportBeanDefinitionRegistrar {
 
 
     public void registerBeanDefinitions(AnnotationMetadata annotationMetadata, BeanDefinitionRegistry registry, AnnotationAttributes annoAttrs, int index) {
-
+        Mode mode = (Mode) annoAttrs.get(LambdaUtil.getName(XbatisDDLAutoScan::mode));
+        if (mode == Mode.NONE) {
+            return;
+        }
 
         String[] entityPackages = (String[]) annoAttrs.get(LambdaUtil.getName(XbatisDDLAutoScan::entityPackages));
         ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
@@ -80,7 +84,7 @@ public class XbatisDDLAutoRegistrar implements ImportBeanDefinitionRegistrar {
         genericBeanDefinition.setBeanClass(XbatisDDLAuto.class);
         genericBeanDefinition.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
         genericBeanDefinition.getPropertyValues().add("entities", entities);
-        genericBeanDefinition.getPropertyValues().add("mode", annoAttrs.get(LambdaUtil.getName(XbatisDDLAutoScan::mode)));
+        genericBeanDefinition.getPropertyValues().add("mode", mode);
         genericBeanDefinition.getPropertyValues().add("dbType", annoAttrs.get(LambdaUtil.getName(XbatisDDLAutoScan::dbType)));
         genericBeanDefinition.getPropertyValues().add("dataSource", annoAttrs.get(LambdaUtil.getName(XbatisDDLAutoScan::dataSource)));
         genericBeanDefinition.setAttribute("order", "0");
