@@ -77,8 +77,8 @@ public class XbatisDDLAuto implements BeanPostProcessor {
         } else {
             ds = dataSources.get(this.dataSource);
             if (ds == null) {
-                if (ds instanceof AbstractRoutingDataSource) {
-                    AbstractRoutingDataSource routingDataSource = (AbstractRoutingDataSource) ds;
+                if (this.primary instanceof AbstractRoutingDataSource) {
+                    AbstractRoutingDataSource routingDataSource = (AbstractRoutingDataSource) this.primary;
                     Map<Object, DataSource> dss = routingDataSource.getResolvedDataSources();
                     ds = dss.get(this.dataSource);
                 }
