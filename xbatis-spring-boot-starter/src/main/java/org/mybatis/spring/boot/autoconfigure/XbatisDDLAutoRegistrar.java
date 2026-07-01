@@ -83,10 +83,9 @@ public class XbatisDDLAutoRegistrar implements ImportBeanDefinitionRegistrar {
         genericBeanDefinition.setBeanClass(XbatisDDLAuto.class);
         genericBeanDefinition.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
         genericBeanDefinition.getPropertyValues().add("entities", entities);
-        genericBeanDefinition.getPropertyValues().add("mode", annoAttrs.get(LambdaUtil.getName(XbatisDDLAutoScan::mode)));
+        genericBeanDefinition.getPropertyValues().add("mode", mode);
         genericBeanDefinition.getPropertyValues().add("dbType", annoAttrs.get(LambdaUtil.getName(XbatisDDLAutoScan::dbType)));
         genericBeanDefinition.getPropertyValues().add("dataSource", annoAttrs.get(LambdaUtil.getName(XbatisDDLAutoScan::dataSource)));
-        genericBeanDefinition.setAttribute("order", "0");
         genericBeanDefinition.setLazyInit(false);
 
         registry.registerBeanDefinition("xbatisDDLAuto" + (index == 0 ? "" : index), genericBeanDefinition);
