@@ -97,10 +97,12 @@ public class XbatisDDLAuto implements BeanPostProcessor {
             dbType = DbTypeUtil.getDbType(ds);
         }
 
-        DDLAuto.of(dbType)
-                .add(this.entities)
-                .mode(this.mode)
-                .execute(ds);
+        if (!entities.isEmpty()) {
+            DDLAuto.of(dbType)
+                    .add(this.entities)
+                    .mode(this.mode)
+                    .execute(ds);
+        }
 
         applicationEventPublisher.publishEvent(new XbatisDDLAutoCompleteEvent());
     }

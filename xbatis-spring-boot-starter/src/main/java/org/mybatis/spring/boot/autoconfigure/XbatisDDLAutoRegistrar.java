@@ -77,10 +77,6 @@ public class XbatisDDLAutoRegistrar implements ImportBeanDefinitionRegistrar {
 
         logger.info("扫描到{}个需要DDL的实体类", entities.size());
 
-        if (entities.isEmpty()) {
-            return;
-        }
-
         GenericBeanDefinition genericBeanDefinition = new GenericBeanDefinition();
         genericBeanDefinition.setBeanClass(XbatisDDLAuto.class);
         genericBeanDefinition.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
