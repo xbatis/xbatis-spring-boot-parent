@@ -22,6 +22,7 @@ import db.sql.api.IDbType;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 import javax.sql.DataSource;
@@ -30,6 +31,8 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class XbatisDDLAuto implements BeanPostProcessor {
+
+    private ApplicationEventPublisher applicationEventPublisher;
 
     private final AtomicBoolean executed = new AtomicBoolean(false);
 
@@ -45,7 +48,8 @@ public class XbatisDDLAuto implements BeanPostProcessor {
 
     protected String dataSource;
 
-    public XbatisDDLAuto(DataSource primary, Map<String, DataSource> dataSources) {
+    public XbatisDDLAuto(ApplicationEventPublisher applicationEventPublisher, DataSource primary, Map<String, DataSource> dataSources) {
+        this.applicationEventPublisher = applicationEventPublisher;
         this.primary = primary;
         this.dataSources = dataSources;
     }
@@ -93,10 +97,14 @@ public class XbatisDDLAuto implements BeanPostProcessor {
             dbType = DbTypeUtil.getDbType(ds);
         }
 
-        DDLAuto.of(dbType)
-                .add(this.entities)
-                .mode(this.mode)
-                .execute(ds);
+        if (!entities.isEmpty()) {
+            DDLAuto.of(dbType)
+                    .add(this.entities)
+                    .mode(this.mode)
+                    .execute(ds);
+        }
+
+        applicationEventPublisher.publishEvent(new XbatisDDLAutoCompleteEvent());
     }
 
     @Override
