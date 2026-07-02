@@ -16,10 +16,12 @@ package org.mybatis.spring.boot.autoconfigure;
 
 import cn.xbatis.core.dbType.DbTypeUtil;
 import cn.xbatis.ddl.auto.DDLAuto;
-import cn.xbatis.ddl.auto.Mode;
 import db.sql.api.DbType;
+import db.sql.api.DbTypes;
 import db.sql.api.IDbType;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -32,21 +34,17 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class XbatisDDLAuto implements BeanPostProcessor {
 
+    private static final Logger logger = LoggerFactory.getLogger(XbatisDDLAuto.class);
+
     private ApplicationEventPublisher applicationEventPublisher;
 
     private final AtomicBoolean executed = new AtomicBoolean(false);
 
-    protected DataSource primary;
+    private final DataSource primary;
 
-    protected Map<String, DataSource> dataSources;
+    private final Map<String, DataSource> dataSources;
 
-    protected List<Class<?>> entities;
-
-    protected Mode mode;
-
-    protected IDbType dbType;
-
-    protected String dataSource;
+    private List<XbatisDDLAutoItem> xbatisDDLAutoItems;
 
     public XbatisDDLAuto(ApplicationEventPublisher applicationEventPublisher, DataSource primary, Map<String, DataSource> dataSources) {
         this.applicationEventPublisher = applicationEventPublisher;
@@ -54,56 +52,46 @@ public class XbatisDDLAuto implements BeanPostProcessor {
         this.dataSources = dataSources;
     }
 
-    public void setEntities(List<Class<?>> entities) {
-        this.entities = entities;
-    }
-
-    public void setMode(Mode mode) {
-        this.mode = mode;
-    }
-
-    public void setDbType(IDbType dbType) {
-        this.dbType = dbType;
-    }
-
-    public void setDataSource(String dataSource) {
-        this.dataSource = dataSource;
-    }
-
-
-    protected void autoDDL() {
-        DataSource ds;
-        if (this.dataSource == null || this.dataSource.isEmpty()) {
-            ds = this.primary;
-            if (ds == null) {
+    protected void executeAutoDDL(XbatisDDLAutoItem item) {
+        DataSource realDataSource;
+        if (item.getDataSource() == null || item.getDataSource().isEmpty()) {
+            realDataSource = this.primary;
+            if (realDataSource == null) {
                 throw new RuntimeException("找不到可用的dataSource bean");
             }
         } else {
-            ds = dataSources.get(this.dataSource);
-            if (ds == null) {
+            realDataSource = dataSources.get(item.getDataSource());
+            if (realDataSource == null) {
                 if (this.primary instanceof AbstractRoutingDataSource) {
                     AbstractRoutingDataSource routingDataSource = (AbstractRoutingDataSource) this.primary;
                     Map<Object, DataSource> dss = routingDataSource.getResolvedDataSources();
-                    ds = dss.get(this.dataSource);
+                    realDataSource = dss.get(item.getDataSource());
                 }
             }
-            if (ds == null) {
-                throw new RuntimeException("找不到 dataSource beanName:" + this.dataSource);
+            if (realDataSource == null) {
+                throw new RuntimeException("找不到 dataSource beanName:" + item.getDataSource());
             }
         }
 
-        IDbType dbType = this.dbType;
+        IDbType dbType = DbTypes.getByName(item.getDbType());
         if (dbType == DbType.UNKNOWN) {
-            dbType = DbTypeUtil.getDbType(ds);
+            dbType = DbTypeUtil.getDbType(realDataSource);
         }
 
-        if (!this.entities.isEmpty()) {
+        if (!item.getEntities().isEmpty()) {
             DDLAuto.of(dbType)
-                    .add(this.entities)
-                    .mode(this.mode)
-                    .execute(ds);
+                    .add(item.getEntities())
+                    .mode(item.getMode())
+                    .execute(realDataSource);
         }
-        applicationEventPublisher.publishEvent(new XbatisDDLAutoCompleteEvent());
+    }
+
+    protected void autoDDL() {
+        for (XbatisDDLAutoItem item : xbatisDDLAutoItems) {
+            this.executeAutoDDL(item);
+        }
+        logger.info("Xbatis DDL Auto 全部完成，发送 XbatisDDLAutoCompleteEvent 事件");
+        applicationEventPublisher.publishEvent(new XbatisDDLAutoCompleteEvent(this));
     }
 
     @Override
@@ -112,5 +100,9 @@ public class XbatisDDLAuto implements BeanPostProcessor {
             this.autoDDL();
         }
         return BeanPostProcessor.super.postProcessAfterInitialization(bean, beanName);
+    }
+
+    public void setXbatisDDLAutoItems(List<XbatisDDLAutoItem> xbatisDDLAutoItems) {
+        this.xbatisDDLAutoItems = xbatisDDLAutoItems;
     }
 }
