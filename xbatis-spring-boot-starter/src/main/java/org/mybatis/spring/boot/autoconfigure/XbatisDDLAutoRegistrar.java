@@ -72,7 +72,7 @@ public class XbatisDDLAutoRegistrar implements ImportBeanDefinitionRegistrar {
                     }
                 }
             }
-            logger.info("扫描：{},发现{}个需要DDL的实体类", entities.size());
+            logger.info("扫描：{},发现{}个需要DDL的实体类", String.join(",", entityPackages), entities.size());
 
             String dbType = attributes.get(LambdaUtil.getName(XbatisDDLAutoScan::dbType)).toString();
             String dataSource = attributes.get(LambdaUtil.getName(XbatisDDLAutoScan::dataSource)).toString();
