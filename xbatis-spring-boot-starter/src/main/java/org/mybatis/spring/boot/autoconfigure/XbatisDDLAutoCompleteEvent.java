@@ -18,7 +18,7 @@ import org.springframework.context.ApplicationEvent;
 
 public class XbatisDDLAutoCompleteEvent extends ApplicationEvent {
 
-    public XbatisDDLAutoCompleteEvent() {
-        super(null);
+    public XbatisDDLAutoCompleteEvent(XbatisDDLAuto source) {
+        super(source);
     }
 }
