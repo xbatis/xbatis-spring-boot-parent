@@ -85,12 +85,6 @@
                 <artifactId>xbatis-datasource-routing</artifactId>
                 <version>${xbatis-datasource-routing.version}</version>
             </dependency>
-
-            <dependency>
-                <groupId>cn.xbatis</groupId>
-                <artifactId>xbatis-ddl-auto</artifactId>
-                <version>${xbatis-ddl-auto.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
