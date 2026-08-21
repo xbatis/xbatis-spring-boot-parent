@@ -15,7 +15,7 @@ xbatis springboot启动器，基于mybatis-spring-boot-starter改动，改动很
         <dependency>
             <groupId>cn.xbatis</groupId>
             <artifactId>xbatis-spring-boot-parent</artifactId>
-            <version>1.10.7</version>
+            <version>1.10.8</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -38,7 +38,7 @@ xbatis springboot启动器，基于mybatis-spring-boot-starter改动，改动很
         <dependency>
             <groupId>cn.xbatis</groupId>
             <artifactId>xbatis-spring-boot-parent</artifactId>
-            <version>1.10.7-spring-boot3</version>
+            <version>1.10.8-spring-boot3</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -61,7 +61,7 @@ xbatis springboot启动器，基于mybatis-spring-boot-starter改动，改动很
         <dependency>
             <groupId>cn.xbatis</groupId>
             <artifactId>xbatis-spring-boot-parent</artifactId>
-            <version>1.10.7-spring-boot4</version>
+            <version>1.10.8-spring-boot4</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -115,8 +115,8 @@ public class DatasourceConfig {
 public class DemoApplication {
 
     public static void main(String[] args) {
-        MybatisMpConfig.setTableUnderline(true); //数据库表是否下划线规则 默认 true
-        MybatisMpConfig.setColumnUnderline(true); ///数据库列是否下划线规则 默认 true
+        XbatisGlobalConfig.setTableUnderline(true); //数据库表是否下划线规则 默认 true
+        XbatisGlobalConfig.setColumnUnderline(true); ///数据库列是否下划线规则 默认 true
         SpringApplication.run(DemoApplication.class, args);
     }
 }
