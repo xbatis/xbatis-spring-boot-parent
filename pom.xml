@@ -69,7 +69,6 @@
         <maven.compiler.target>8</maven.compiler.target>
 
         <xbatis-spring-boot-starter.version>1.10.9</xbatis-spring-boot-starter.version>
-        <xbatis-datasource-routing.version>1.1.2</xbatis-datasource-routing.version>
     </properties>
 
     <dependencyManagement>
@@ -78,12 +77,6 @@
                 <groupId>cn.xbatis</groupId>
                 <artifactId>xbatis-spring-boot-starter</artifactId>
                 <version>${xbatis-spring-boot-starter.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>cn.xbatis</groupId>
-                <artifactId>xbatis-datasource-routing</artifactId>
-                <version>${xbatis-datasource-routing.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
