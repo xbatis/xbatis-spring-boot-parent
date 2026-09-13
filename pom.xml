@@ -69,7 +69,7 @@
         <maven.compiler.target>17</maven.compiler.target>
 
         <xbatis-spring-boot-starter.version>1.10.9-spring-boot4</xbatis-spring-boot-starter.version>
-        <xbatis-datasource-routing.version>1.1.2-spring-boot4</xbatis-datasource-routing.version>
+        <xbatis-datasource-routing.version>1.1.3-spring-boot4</xbatis-datasource-routing.version>
 
         <logback.version>1.6.3</logback.version>
         <slf4j.version>2.0.19</slf4j.version>
