@@ -407,6 +407,11 @@ public class MybatisProperties {
          */
         private boolean banner = true;
 
+        /**
+         * 是否异步初始化
+         */
+        private boolean asyncInit = false;
+
         public Boolean getSafeRowBoundsEnabled() {
             return safeRowBoundsEnabled;
         }
@@ -672,6 +677,14 @@ public class MybatisProperties {
             this.banner = banner;
         }
 
+        public boolean isAsyncInit() {
+            return asyncInit;
+        }
+
+        public void setAsyncInit(boolean asyncInit) {
+            this.asyncInit = asyncInit;
+        }
+
         public void applyTo(MybatisConfiguration target) {
             PropertyMapper mapper = PropertyMapper.get();
             mapper.from(getSafeRowBoundsEnabled()).to(target::setSafeRowBoundsEnabled);
@@ -707,6 +720,7 @@ public class MybatisProperties {
             mapper.from(getDefaultEnumTypeHandler()).to(target::setDefaultEnumTypeHandler);
             mapper.from(getDatabaseId()).to(target::setDatabaseId);
             mapper.from(isBanner()).to(target::setBanner);
+            mapper.from(isAsyncInit()).to(target::setAsyncInit);
         }
 
     }
