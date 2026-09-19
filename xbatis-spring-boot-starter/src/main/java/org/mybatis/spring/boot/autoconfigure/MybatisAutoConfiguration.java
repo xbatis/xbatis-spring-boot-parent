@@ -39,6 +39,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnSingleCandidate;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -126,6 +127,12 @@ public class MybatisAutoConfiguration implements InitializingBean {
             Assert.state(resource.exists(),
                     "Cannot find config location: " + resource + " (please add config file or check your Mybatis configuration)");
         }
+    }
+
+    @Bean
+    @ConditionalOnProperty(prefix = MybatisProperties.MYBATIS_PREFIX + ".configuration", name = "asyncInit", havingValue = "true")
+    public MapperBeanPostProcessor mapperBeanPostProcessor() {
+        return new MapperBeanPostProcessor();
     }
 
     @Bean
