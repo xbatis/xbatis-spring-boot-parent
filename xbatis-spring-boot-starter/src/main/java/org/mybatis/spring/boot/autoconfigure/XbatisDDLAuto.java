@@ -25,6 +25,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.core.Ordered;
+import org.springframework.core.PriorityOrdered;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 import javax.sql.DataSource;
@@ -32,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class XbatisDDLAuto implements BeanPostProcessor {
+public class XbatisDDLAuto implements BeanPostProcessor, PriorityOrdered {
 
     private static final Logger logger = LoggerFactory.getLogger(XbatisDDLAuto.class);
     private final AtomicBoolean executed = new AtomicBoolean(false);
@@ -99,5 +101,10 @@ public class XbatisDDLAuto implements BeanPostProcessor {
 
     public void setXbatisDDLAutoItems(List<XbatisDDLAutoItem> xbatisDDLAutoItems) {
         this.xbatisDDLAutoItems = xbatisDDLAutoItems;
+    }
+
+    @Override
+    public int getOrder() {
+        return Ordered.HIGHEST_PRECEDENCE;
     }
 }
