@@ -21,6 +21,7 @@ import db.sql.api.DbTypes;
 import db.sql.api.IDbType;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.jspecify.annotations.Nullable;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -93,7 +94,7 @@ public class XbatisDDLAuto implements BeanPostProcessor, Ordered {
 
     @Override
     public @Nullable Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        if ((bean instanceof SqlSessionFactory || bean instanceof MybatisAutoConfiguration) && executed.compareAndSet(false, true)) {
+        if ((bean instanceof SqlSessionFactory || bean instanceof SqlSessionTemplate) && executed.compareAndSet(false, true)) {
             this.autoDDL();
         }
         return BeanPostProcessor.super.postProcessBeforeInitialization(bean, beanName);
