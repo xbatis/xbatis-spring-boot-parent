@@ -24,6 +24,8 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
+import org.springframework.core.Ordered;
+import org.springframework.core.PriorityOrdered;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
@@ -32,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class XbatisDDLAutoRegistrar implements ImportBeanDefinitionRegistrar {
+public class XbatisDDLAutoRegistrar implements ImportBeanDefinitionRegistrar, PriorityOrdered {
 
     private static final Logger logger = LoggerFactory.getLogger(XbatisDDLAutoRegistrar.class);
 
@@ -92,6 +94,11 @@ public class XbatisDDLAutoRegistrar implements ImportBeanDefinitionRegistrar {
         genericBeanDefinition.setLazyInit(false);
 
         registry.registerBeanDefinition("xbatisDDLAuto", genericBeanDefinition);
+    }
+
+    @Override
+    public int getOrder() {
+        return Ordered.HIGHEST_PRECEDENCE;
     }
 
     static class RepeatingRegistrar extends XbatisDDLAutoRegistrar {
