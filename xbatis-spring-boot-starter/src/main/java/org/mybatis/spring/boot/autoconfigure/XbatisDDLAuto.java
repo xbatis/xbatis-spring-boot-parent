@@ -20,13 +20,13 @@ import db.sql.api.DbType;
 import db.sql.api.DbTypes;
 import db.sql.api.IDbType;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.core.Ordered;
-import org.springframework.core.PriorityOrdered;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 import javax.sql.DataSource;
@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class XbatisDDLAuto implements BeanPostProcessor, PriorityOrdered {
+public class XbatisDDLAuto implements BeanPostProcessor, Ordered {
 
     private static final Logger logger = LoggerFactory.getLogger(XbatisDDLAuto.class);
     private final AtomicBoolean executed = new AtomicBoolean(false);
@@ -92,11 +92,11 @@ public class XbatisDDLAuto implements BeanPostProcessor, PriorityOrdered {
     }
 
     @Override
-    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        if (bean instanceof SqlSessionFactory && executed.compareAndSet(false, true)) {
+    public @Nullable Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+        if ((bean instanceof SqlSessionFactory || bean instanceof MybatisAutoConfiguration) && executed.compareAndSet(false, true)) {
             this.autoDDL();
         }
-        return BeanPostProcessor.super.postProcessAfterInitialization(bean, beanName);
+        return BeanPostProcessor.super.postProcessBeforeInitialization(bean, beanName);
     }
 
     public void setXbatisDDLAutoItems(List<XbatisDDLAutoItem> xbatisDDLAutoItems) {
