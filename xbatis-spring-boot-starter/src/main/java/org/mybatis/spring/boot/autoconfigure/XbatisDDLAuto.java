@@ -40,7 +40,7 @@ public class XbatisDDLAuto implements BeanPostProcessor, Ordered {
     private final AtomicBoolean executed = new AtomicBoolean(false);
     private final DataSource primary;
     private final Map<String, DataSource> dataSources;
-    private ApplicationEventPublisher applicationEventPublisher;
+    private final ApplicationEventPublisher applicationEventPublisher;
     private List<XbatisDDLAutoItem> xbatisDDLAutoItems;
 
     public XbatisDDLAuto(ApplicationEventPublisher applicationEventPublisher, DataSource primary, Map<String, DataSource> dataSources) {
